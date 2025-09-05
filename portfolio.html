@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anam Aqil - Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+  <style>
+    /* ---------- Base Styles ---------- */
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    html{scroll-behavior:smooth;}
+    body{background:#f5f6fa;color:#2c3e50;transition:0.4s;}
+
+    :root{
+      --primary:#6c63ff;
+      --accent:#ff6b6b;
+      --dark:#1a1a2e;
+      --light:#ffffff;
+    }
+    body.dark{background:#1a1a2e;color:#f5f6fa;}
+
+    a{text-decoration:none;}
+
+    /* ---------- Navbar ---------- */
+    header{
+      position:fixed;top:0;left:0;width:100%;z-index:1000;
+      backdrop-filter:blur(12px);background:rgba(255,255,255,0.6);
+      box-shadow:0 2px 20px rgba(0,0,0,0.1);transition:0.3s;
+    }
+    body.dark header{background:rgba(26,26,46,0.8);}
+    .navbar{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;}
+    .logo{font-size:28px;font-weight:700;color:var(--primary);}
+    .logo span{color:var(--accent);}
+    .nav-links{display:flex;list-style:none;gap:25px;}
+    .nav-links a{color:var(--dark);font-weight:500;transition:0.3s;}
+    body.dark .nav-links a{color:#fff;}
+    .nav-links a:hover{color:var(--primary);}
+    .hamburger{display:none;font-size:22px;cursor:pointer;color:var(--dark);}
+    body.dark .hamburger{color:#fff;}
+    .theme-toggle{cursor:pointer;font-size:22px;color:var(--primary);}
+
+    /* ---------- Hero ---------- */
+    .hero{
+      height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+      background:linear-gradient(135deg,#6c63ff22,#ff6b6b22);position:relative;overflow:hidden;
+    }
+    .hero h1{font-size:3rem;font-weight:700;}
+    .hero h1 span{color:var(--primary);}
+    .hero p{margin:20px auto;max-width:600px;color:#555;}
+    body.dark .hero p{color:#ddd;}
+    .btn{
+      display:inline-block;padding:12px 30px;margin:10px;border-radius:30px;
+      background:var(--primary);color:#fff;font-weight:600;box-shadow:0 0 20px rgba(108,99,255,0.4);
+      transition:0.3s;
+    }
+    .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 0 30px rgba(108,99,255,0.6);}
+    .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary);}
+    .btn-outline:hover{background:var(--primary);color:#fff;}
+
+    /* Floating blobs */
+    .blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.4;z-index:0;animation:float 8s infinite alternate ease-in-out;}
+    .blob1{width:400px;height:400px;background:var(--primary);top:10%;left:10%;}
+    .blob2{width:300px;height:300px;background:var(--accent);bottom:10%;right:15%;}
+    @keyframes float{from{transform:translateY(0)}to{transform:translateY(-40px)}}
+
+    /* ---------- Sections ---------- */
+    section{padding:100px 10%;}
+    .section-title{text-align:center;margin-bottom:50px;}
+    .section-title h2{font-size:2.5rem;display:inline-block;position:relative;}
+    .section-title h2::after{
+      content:"";width:60%;height:4px;background:var(--primary);
+      position:absolute;left:20%;bottom:-10px;border-radius:2px;
+    }
+
+    /* ---------- About ---------- */
+    .about-content{display:flex;flex-wrap:wrap;gap:50px;align-items:center;justify-content:center;}
+    .about-image img{width:280px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);}
+    .about-text{max-width:500px;}
+    .about-text p{margin-bottom:15px;}
+
+    /* ---------- Education ---------- */
+    .timeline{position:relative;max-width:1200px;margin:0 auto;}
+    .timeline::after{content:'';position:absolute;width:6px;background:var(--primary);top:0;bottom:0;left:50%;margin-left:-3px;}
+    .timeline-item{position:relative;width:50%;padding:10px 40px;box-sizing:border-box;}
+    .timeline-item:nth-child(odd){left:0;}
+    .timeline-item:nth-child(even){left:50%;}
+    .timeline-content{position:relative;padding:20px;background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+    body.dark .timeline-content{background:#2a2a44;}
+    .timeline-content h3{color:var(--primary);margin-bottom:5px;}
+    .timeline-content p{margin:5px 0;}
+    .timeline-date{font-weight:bold;color:var(--accent);}
+
+    /* ---------- Experience ---------- */
+    .experience-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:30px;}
+    .experience-card{background:#fff;padding:25px;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+    body.dark .experience-card{background:#2a2a44;}
+    .experience-card h3{color:var(--primary);margin-bottom:10px;}
+    .experience-company{font-weight:bold;margin-bottom:5px;}
+    .experience-date{color:#777;margin-bottom:15px;font-size:14px;}
+    body.dark .experience-date{color:#aaa;}
+    .experience-desc ul{margin-left:20px;}
+    .experience-desc li{margin-bottom:8px;}
+
+    /* ---------- Skills ---------- */
+    .skills-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:30px;}
+    .skill-category{background:var(--light);padding:25px;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+    body.dark .skill-category{background:#2a2a44;}
+    .skill-name{display:flex;justify-content:space-between;}
+    .skill-bar{height:8px;background:#eee;border-radius:5px;overflow:hidden;}
+    body.dark .skill-bar{background:#444;}
+    .skill-progress{height:100%;background:var(--primary);width:0;}
+
+    /* ---------- Projects ---------- */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:30px;}
+    .project-card{border-radius:15px;overflow:hidden;background:#fff;box-shadow:0 15px 40px rgba(0,0,0,0.1);transition:.4s;}
+    body.dark .project-card{background:#2a2a44;}
+    .project-card:hover{transform:translateY(-10px);}
+    .project-img img{width:100%;height:200px;object-fit:cover;transition:.5s;}
+    .project-card:hover img{transform:scale(1.1);}
+    .project-content{padding:20px;}
+    .project-links{margin-top:10px;}
+    .project-links a{margin-right:10px;padding:6px 12px;border-radius:6px;font-size:14px;background:var(--primary);color:#fff;}
+    .project-links a:hover{opacity:0.8;}
+
+    /* ---------- Certifications ---------- */
+    .certifications-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:30px;}
+    .cert-card{background:#fff;padding:20px;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+    body.dark .cert-card{background:#2a2a44;}
+    .cert-card h3{color:var(--primary);margin-bottom:10px;}
+    .cert-card p{margin-bottom:10px;}
+    .cert-id{font-size:12px;color:#777;font-style:italic;}
+    body.dark .cert-id{color:#aaa;}
+
+    /* ---------- Contact ---------- */
+    .contact-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;}
+    .contact-form{background:#fff;padding:30px;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+    body.dark .contact-form{background:#2a2a44;}
+    .form-control{width:100%;padding:12px 15px;margin-bottom:20px;border:1px solid #ddd;border-radius:5px;}
+    .form-control:focus{border-color:var(--primary);outline:none;}
+
+    /* ---------- Footer ---------- */
+    footer{background:var(--dark);color:#ddd;text-align:center;padding:50px 20px;}
+    .social-links{display:flex;justify-content:center;gap:20px;margin-top:20px;}
+    .social-link{color:#ddd;font-size:20px;}
+    .social-link:hover{color:var(--primary);}
+
+    /* ---------- Responsive ---------- */
+    @media(max-width:768px){
+      .nav-links{
+        position:fixed;top:0;right:-100%;width:70%;height:100%;background:var(--primary);
+        flex-direction:column;justify-content:center;align-items:center;transition:.5s;
+      }
+      .nav-links.active{right:0;}
+      .nav-links a{color:#fff;font-size:22px;margin:15px 0;}
+      .hamburger{display:block;}
+      .about-content{flex-direction:column;text-align:center;}
+      .timeline::after{left:31px;}
+      .timeline-item{width:100%;padding-left:70px;padding-right:25px;}
+      .timeline-item:nth-child(even){left:0;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <a href="#" class="logo">Anam<span>Aqil</span></a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div>
+        <i class="fas fa-moon theme-toggle"></i>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Hi, I'm <span>Anam Aqil</span></h1>
+      <p>Talent Sourcing & HR Professional with expertise in recruitment, employee engagement, and healthcare initiatives.</p>
+      <a href="#projects" class="btn">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-title"><h2>About Me</h2></div>
+    <div class="about-content" data-aos="fade-right">
+      <div class="about-image">
+        <img src="https://via.placeholder.com/300x400.png?text=Anam+Aqil" alt="Anam Aqil">
+      </div>
+      <div class="about-text">
+        <p>I am a dedicated HR and Talent Sourcing professional with experience in recruitment, employee engagement, and healthcare initiatives. My educational background spans business administration, arts, and pharmaceutical sciences, giving me a unique perspective on human resources in various industries.</p>
+        <p>I'm passionate about connecting talented individuals with opportunities where they can thrive and contribute meaningfully to organizational success.</p>
+        <a href="#" class="btn">Download CV</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education">
+    <div class="section-title"><h2>Education</h2></div>
+    <div class="timeline">
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-content">
+          <h3>MBA</h3>
+          <p class="timeline-date">SGPA: 7.88</p>
+          <p>Dr. Virendra Swarup Institute of Computer Studies, Kanpur</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-content">
+          <h3>Bachelor of Arts</h3>
+          <p class="timeline-date">CGPA: 6.508</p>
+          <p>Prof. Rajendra Singh University, Prayagraj</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-content">
+          <h3>Diploma of Pharmacy</h3>
+          <p class="timeline-date">Percentage: 84.76%</p>
+          <p>Chhatrapati Shahu Ji Maharaj University, Kanpur</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-content">
+          <h3>Higher Secondary</h3>
+          <p class="timeline-date">Percentage: 76.6%</p>
+          <p>Stepping Stone Intermediate College</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-right">
+        <div class="timeline-content">
+          <h3>Secondary School</h3>
+          <p class="timeline-date">Percentage: 79.3%</p>
+          <p>Stepping Stone Intermediate College</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="section-title"><h2>Experience</h2></div>
+    <div class="experience-container">
+      <div class="experience-card" data-aos="fade-up">
+        <h3>Talent Sourcing & Recruitment Support</h3>
+        <p class="experience-company">I Soar</p>
+        <p class="experience-date">May 26 2025 - June 26 2025 | Lucknow, Uttar Pradesh</p>
+        <div class="experience-desc">
+          <ul>
+            <li>Finding, screening, and shortlisting suitable candidates for job openings</li>
+            <li>Handled administrative and reporting tasks in the Human Resource department</li>
+          </ul>
+        </div>
+      </div>
+      <div class="experience-card" data-aos="fade-up">
+        <h3>Human Resources</h3>
+        <p class="experience-company">PLASMID</p>
+        <div class="experience-desc">
+          <ul>
+            <li>Supported the HR and Operations team in project execution, ensuring quality and timely delivery</li>
+            <li>Assisted in industrial HR projects, contributing to recruitment, employee engagement, and documentation tasks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="section-title"><h2>Skills</h2></div>
+    <div class="skills-container">
+      <div class="skill-category" data-aos="fade-up">
+        <h3>HR & Recruitment</h3>
+        <div class="skill-name"><span>Talent Sourcing</span><span>90%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="90%"></div></div>
+        <div class="skill-name"><span>Candidate Screening</span><span>85%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="85%"></div></div>
+        <div class="skill-name"><span>Employee Engagement</span><span>80%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="80%"></div></div>
+      </div>
+      <div class="skill-category" data-aos="fade-up">
+        <h3>Technical Skills</h3>
+        <div class="skill-name"><span>MS Office</span><span>90%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="90%"></div></div>
+        <div class="skill-name"><span>Power BI</span><span>75%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="75%"></div></div>
+        <div class="skill-name"><span>Canva</span><span>80%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="80%"></div></div>
+      </div>
+      <div class="skill-category" data-aos="fade-up">
+        <h3>Professional Skills</h3>
+        <div class="skill-name"><span>Business Communication</span><span>85%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="85%"></div></div>
+        <div class="skill-name"><span>Customer Centricity</span><span>90%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="90%"></div></div>
+        <div class="skill-name"><span>Project Support</span><span>80%</span></div>
+        <div class="skill-bar"><div class="skill-progress" data-width="80%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-title"><h2>Projects</h2></div>
+    <div class="projects-grid">
+      <div class="project-card" data-aos="zoom-in">
+        <div class="project-img"><img src="https://via.placeholder.com/400x250.png?text=Medical+Caravane" alt="Medical Caravane"></div>
+        <div class="project-content">
+          <h3>Medical Caravane</h3>
+          <p>Mobile Health Care Units delivering essential healthcare services to underserved populations in remote, rural, or marginalized communities.</p>
+          <div class="project-links">
+            <a href="#">Certificate</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications">
+    <div class="section-title"><h2>Certifications</h2></div>
+    <div class="certifications-container">
+      <div class="cert-card" data-aos="fade-up">
+        <h3>HP Life - Business Emails</h3>
+        <p>Gained practical skills in structuring, writing, and applying business emails in professional contexts.</p>
+        <p class="cert-id">Serial No: 8e0cd058-3003-47ae-b590-b233187b636a</p>
+      </div>
+      <div class="cert-card" data-aos="fade-up">
+        <h3>HP Life - Customer Centricity</h3>
+        <p>Skills including how to define customer centricity and its role in business strategy.</p>
+        <p class="cert-id">Serial No: 47646404-086d-4890-aa05-e2a8eba20258</p>
+      </div>
+      <div class="cert-card" data-aos="fade-up">
+        <h3>IIDE Digital School</h3>
+        <p>Digital Marketing certification.</p>
+      </div>
+      <div class="cert-card" data-aos="fade-up">
+        <h3>Bajaj Finserv</h3>
+        <p>HR-focused workshop as part of a broader program in Banking, Finance and Insurance.</p>
+        <p class="cert-id">Reg No: BFS384131</p>
+      </div>
+      <div class="cert-card" data-aos="fade-up">
+        <h3>Pharma Fest</h3>
+        <p>Student Volunteer certificate awarded from School of Pharmaceutical Science.</p>
+      </div>
+      <div class="cert-card" data-aos="fade-up">
+        <h3>Mahindra "KAABIL" Program</h3>
+        <p>Successfully completed Training under skill development program supported by Mahindra and Mahindra Ltd.</p>
+      </div>
+      <div class="cert-card" data-aos="fade-up">
+        <h3>HR Workshop</h3>
+        <p>HR Workshop as part of the Certificate Programme in Banking, Finance, and Insurance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-title"><h2>Contact</h2></div>
+    <div class="contact-container" data-aos="fade-up">
+      <div>
+        <p><i class="fas fa-map-marker-alt"></i> Kanpur - Juhi Depo, Uttar Pradesh</p>
+        <p><i class="fas fa-envelope"></i> anamagi950@gmail.com</p>
+        <p><i class="fas fa-phone"></i> +91-9305544649</p>
+        <p><i class="fab fa-linkedin"></i> LinkedIn Profile</p>
+      </div>
+      <form class="contact-form" id="contact-form">
+        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+        <textarea class="form-control" name="message" placeholder="Message" rows="5" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Anam Aqil. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <script>
+    AOS.init({duration:1000});
+
+    // Mobile Nav Toggle
+    const hamburger=document.querySelector('.hamburger');
+    const navLinks=document.querySelector('.nav-links');
+    hamburger.addEventListener('click',()=>navLinks.classList.toggle('active'));
+
+    // Dark Mode
+    const toggle=document.querySelector('.theme-toggle');
+    toggle.addEventListener('click',()=>{
+      document.body.classList.toggle('dark');
+      toggle.classList.toggle('fa-sun');
+      toggle.classList.toggle('fa-moon');
+    });
+
+    // Animate Skills
+    const skills=document.querySelectorAll('.skill-progress');
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const bar=entry.target;
+          bar.style.width=bar.getAttribute('data-width');
+        }
+      });
+    },{threshold:0.5});
+    skills.forEach(skill=>observer.observe(skill));
+
+    // EmailJS init
+    (function(){emailjs.init("YOUR_PUBLIC_KEY");})();
+    document.getElementById("contact-form").addEventListener("submit",function(e){
+      e.preventDefault();
+      emailjs.sendForm("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",this)
+      .then(()=>alert("Message Sent!"))
+      .catch(()=>alert("Failed to send message."));
+    });
+  </script>
+</body>
+</html>
